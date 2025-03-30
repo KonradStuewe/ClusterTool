@@ -1,0 +1,166 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: radarr-v2
+    namespace: radarr-v2
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: radarr
+            version: 23.18.0
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: radarr-v2
+    values:
+        TZ: Europe/Berlin
+        credentials:
+            aws:
+                type: s3
+                accessKey: ${AWS_ACCESS_KEY}
+                bucket: ${AWS_BUCKET}
+                encrKey: ${AWS_ENCR_KEY}
+                secretKey: ${AWS_SECRET_KEY}
+                url: ${AWS_URL}
+#        ingress:
+#            main:
+#                enabled: true
+#                hosts:
+#                    - host: radarr.k0nr4d.de
+#                      paths:
+#                        - path: /
+#                          pathType: Prefix
+#                ingressClassName: ""
+#                integrations:
+#                    certManager:
+#                        certificateIssuer: maincert
+#                        enabled: true
+#                    homepage:
+#                        enabled: false
+#                    traefik:
+#                        allowCors: false
+#                        enabled: true
+#                        entrypoints:
+#                            - websecure
+#        metrics:
+#            main:
+#                enabled: false
+#                endpoints:
+#                    - path: /metrics
+#                      port: metrics
+#                prometheusRule:
+#                    enabled: false
+#                targetSelector: metrics
+#                type: servicemonitor
+        persistence:
+            config:
+                enabled: true
+                readOnly: false
+                storageClass: ""
+                targetSelector:
+#                    exportarr:
+#                        exportarr:
+#                            mountPath: /config
+#                            readOnly: true
+                    main:
+                        main:
+                            mountPath: /config
+                volsync:
+                    - credentials: aws
+                      type: restic
+                      name: radarr-config
+                      src:
+                        enabled: false
+                      dest:
+                        enabled: true
+            data-vol:
+                enabled: true
+                type: nfs
+                mountPath: /data
+                path: /mnt/Helios/data
+                server: ${LOCAL_NAS_IP}
+        release_name: radarr-v2
+        securityContext:
+            container:
+                UMASK: "0022"
+                runAsGroup: 568
+                runAsUser: 568
+            pod:
+                fsGroupChangePolicy: OnRootMismatch
+        service:
+            main:
+                enabled: true
+                ports:
+                    main:
+                        port: 7878
+                type: LoadBalancer
+                loadBalancerIP: ""
+#           metrics:
+#               enabled: true
+#               ports:
+#                   metrics:
+#                       enabled: true
+#                       port: 7879
+#                       targetSelector: exportarr
+#               targetSelector: exportarr
+#               type: ClusterIP
+#        updated: true
+#        workload:
+#            exportarr:
+#                enabled: true
+#                podSpec:
+#                    containers:
+#                        exportarr:
+#                            args:
+#                                - radarr
+#                            enabled: true
+#                            env:
+#                                CONFIG: /config/config.xml
+#                                INTERFACE: 0.0.0.0
+#                                PORT: '{{ .Values.service.metrics.ports.metrics.port }}'
+#                                URL: '{{ printf "http://%v:%v" (include "tc.v1.common.lib.chart.names.fullname" $) .Values.service.main.ports.main.port }}'
+#                            imageSelector: exportarrImage
+#                            primary: true
+#                            probes:
+#                                liveness:
+#                                    enabled: true
+#                                    path: /healthz
+#                                    port: '{{ .Values.service.metrics.ports.metrics.port }}'
+#                                    type: http
+#                                readiness:
+#                                    enabled: true
+#                                    path: /healthz
+#                                    port: '{{ .Values.service.metrics.ports.metrics.port }}'
+#                                    type: http
+#                                startup:
+#                                    enabled: true
+#                                    path: /healthz
+#                                    port: '{{ .Values.service.metrics.ports.metrics.port }}'
+#                                    type: http
+#                replicas: 1
+#                strategy: RollingUpdate
+#                type: Deployment
+#            main:
+#                podSpec:
+#                    containers:
+#                        main:
+#                            env:
+#                                RADARR__AUTHENTICATION_METHOD: ""
+#                                RADARR__PORT: '{{ .Values.service.main.ports.main.port }}'
+#                            probes:
+#                                liveness:
+#                                    enabled: true
+#                                    path: /ping
+#                                    type: http
+#                                readiness:
+#                                    enabled: true
+#                                    path: /ping
+#                                    type: http
+#                                startup:
+#                                    enabled: true
+#                                    path: /ping
+#                                    type: http
+#                replicas: 1
+#                type: Deployment
