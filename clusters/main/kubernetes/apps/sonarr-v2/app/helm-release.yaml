@@ -71,7 +71,7 @@ spec:
                       type: restic
                       name: sonarr-config
                       src:
-                        enabled: false
+                        enabled: true
                       dest:
                         enabled: true
             data-vol:
