@@ -28,6 +28,8 @@ spec:
                 backups:
                     credentials: aws
                     enabled: true
+                    retentionPolicy: "14d"
+                    revision: "2"
                 cluster:
                     singleNode: true
                 database: home-assistant
