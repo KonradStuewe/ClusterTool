@@ -29,7 +29,7 @@ spec:
                     credentials: aws
                     enabled: true
                     retentionPolicy: "14d"
-                    revision: "1"
+                    #revision: "1"
                 cluster:
                     singleNode: true
                 database: home-assistant
