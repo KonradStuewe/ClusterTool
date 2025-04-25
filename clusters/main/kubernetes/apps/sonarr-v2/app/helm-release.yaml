@@ -95,7 +95,7 @@ spec:
                     main:
                         port: 8989
                 type: LoadBalancer
-                loadBalancerIP: 10.0.0.217
+#                loadBalancerIP: 10.0.0.217
 #            metrics:
 #                enabled: true
 #                ports:
