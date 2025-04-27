@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: requestrr-v2
+    namespace: requestrr-v2
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: requestrr
+            version: 11.0.8
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: requestrr-v2
+    values:
+        TZ: Europe/Berlin
+        credentials:
+            aws:
+                type: s3
+                accessKey: ${AWS_ACCESS_KEY}
+                bucket: ${AWS_BUCKET}
+                encrKey: ${AWS_ENCR_KEY}
+                secretKey: ${AWS_SECRET_KEY}
+                url: ${AWS_URL}
+        persistence:
+            config:
+                volsync:
+                    - credentials: aws
+                      name: requestrr-config
+                      src:
+                          enabled: true
+                      dest:
+                          enabled: true
+                      type: restic
+        release_name: requestrr-v2
+        service:
+            main:
+                type: LoadBalancer

@@ -9,3 +9,4 @@ resources:
   - radarr-v2/ks.yaml
   - homepage/ks.yaml
   - flaresolverr/ks.yaml
+  - requestrr-v2/ks.yaml
