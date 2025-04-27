@@ -1,19 +1,19 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: requestrr-v2
-    namespace: requestrr-v2
+    name: requestrr
+    namespace: requestrr
 spec:
     interval: 15m
     chart:
         spec:
             chart: requestrr
-            version: 12.5.1
+            version: 11.0.8
             sourceRef:
                 kind: HelmRepository
                 name: truecharts
                 namespace: flux-system
-    releaseName: requestrr-v2
+    releaseName: requestrr
     values:
         TZ: Europe/Berlin
         credentials:
@@ -34,7 +34,7 @@ spec:
                       dest:
                           enabled: true
                       type: restic
-        release_name: requestrr-v2
+        release_name: requestrr
         service:
             main:
                 type: LoadBalancer
