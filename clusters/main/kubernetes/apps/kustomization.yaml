@@ -8,3 +8,4 @@ resources:
   - home-assistant/ks.yaml
   - radarr-v2/ks.yaml
   - homepage/ks.yaml
+  - flaresolverr/ks.yaml
