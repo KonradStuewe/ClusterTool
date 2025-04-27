@@ -50,17 +50,35 @@ spec:
                       type: restic
                       name: home-assistant-config
                       src:
-                        enabled: true
+                          enabled: true
                       dest:
-                        enabled: true
+                          enabled: true
             skyconnect:
-              enabled: true
-              type: device
-              hostPath: /dev/ttyUSB0
+                enabled: true
+                type: device
+                hostPath: /dev/ttyUSB0
         release_name: home-assistant
         service:
             main:
-                ports:
-                    main:
-                        port: 8123
                 type: LoadBalancer
+        ingress:
+            ingress-name:
+                integrations:
+                    homepage:
+                        enabled: false
+                        name: "Home-Assistant"
+                        #description: ""
+                        #group: ""
+                        #icon: ""
+                        #href: ""
+                        #weight: 0
+                        #podSelector: []
+                        #widget:
+                        #    enabled: true
+                        #    type: ""
+                        #    url: ""
+                        #    custom:
+                        #        key: value
+                        #    customkv:
+                        #        - key: some key
+                        #          value: some value
