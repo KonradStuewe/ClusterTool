@@ -35,9 +35,9 @@ spec:
                 volsync:
                     - credentials: aws
                       name: cloudflareddns-config
-                      src:
-                          enabled: true
                       dest:
+                          enabled: true
+                      src:
                           enabled: true
                       type: restic
         release_name: cloudflareddns
