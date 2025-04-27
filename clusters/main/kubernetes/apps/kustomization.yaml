@@ -11,3 +11,4 @@ resources:
   - flaresolverr/ks.yaml
   - requestrr/ks.yaml
   - lldap/ks.yaml
+  - mosquitto/ks.yaml
