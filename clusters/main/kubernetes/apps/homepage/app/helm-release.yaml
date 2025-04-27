@@ -30,11 +30,19 @@ spec:
                     - credentials: aws
                       name: homepage-config
                       src:
-                        enabled: true
+                          enabled: true
                       dest:
-                        enabled: true
+                          enabled: true
                       type: restic
         service:
             main:
                 type: LoadBalancer
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            env:
+                                # Set this to your host (example: home.mydomain.com)
+                                HOMEPAGE_ALLOWED_HOSTS: "*"
         release_name: homepage
