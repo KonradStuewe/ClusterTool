@@ -29,6 +29,7 @@ spec:
                     enablePodMonitor: true
                 password: ${LLDAP_DB_PW}
                 recovery:
+                    credentials: aws
                     enabled: true
                     revision: ""
         credentials:
