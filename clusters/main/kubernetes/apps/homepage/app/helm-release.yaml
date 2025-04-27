@@ -34,4 +34,7 @@ spec:
                       dest:
                         enabled: true
                       type: restic
+        service:
+            main:
+                type: LoadBalancer
         release_name: homepage
