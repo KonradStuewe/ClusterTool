@@ -13,3 +13,4 @@ resources:
   - lldap/ks.yaml
   - mosquitto/ks.yaml
   - cloudflareddns/ks.yaml
+  - plex-v2/ks.yaml
