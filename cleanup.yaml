@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: cleanup-pod
-  namespace: home-assistant
+  namespace: plex
 spec:
   containers:
-  - name: busybox
-    image: busybox
+  - name: sqlite
+    image: alpine:latest
     command: ["sleep", "3600"]
     volumeMounts:
     - mountPath: "/mnt/data"
@@ -14,5 +14,5 @@ spec:
   volumes:
   - name: postgres-storage
     persistentVolumeClaim:
-      claimName: home-assistant-cnpg-main-1-wal
+      claimName: plex-config
   restartPolicy: Never
