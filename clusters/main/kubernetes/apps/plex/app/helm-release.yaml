@@ -54,8 +54,8 @@ spec:
             data-vol:
                 enabled: true
                 type: nfs
-                mountPath: /data/media
-                path: /mnt/Helios/data/media
+                mountPath: /data
+                path: /mnt/Helios/data
                 server: ${LOCAL_NAS_IP}
         securityContext:
             container:
