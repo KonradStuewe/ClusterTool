@@ -15,6 +15,7 @@ spec:
                 namespace: flux-system
     releaseName: xteve
     values:
+        TZ: Europe/Berlin
         credentials:
             aws:
                 type: s3
@@ -25,8 +26,6 @@ spec:
                 url: ${AWS_URL}
         persistence:
             config:
-                enabled: true
-                mountPath: /config
                 volsync:
                     - credentials: aws
                       type: restic
@@ -38,10 +37,4 @@ spec:
         release_name: xteve
         service:
             main:
-                enabled: true
-                ports:
-                    main:
-                        port: 34400
-                        targetPort: 34400
                 type: LoadBalancer
-                loadBalancerIP: 10.0.0.215

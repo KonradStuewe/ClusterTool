@@ -15,6 +15,7 @@ spec:
                 namespace: flux-system
     releaseName: prowlarr-v2
     values:
+        TZ: Europe/Berlin
         credentials:
             aws:
                 type: s3
@@ -25,22 +26,15 @@ spec:
                 url: ${AWS_URL}
         persistence:
             config:
-                enabled: true
-                mountPath: /config
                 volsync:
                     - credentials: aws
                       type: restic
                       name: prowlarr-config
                       src:
-                        enabled: false
+                        enabled: true
                       dest:
                         enabled: true
         release_name: prowlarr-v2
         service:
             main:
-                enabled: true
-                ports:
-                    main:
-                        port: 9696
                 type: LoadBalancer
-                loadBalancerIP: 10.0.0.216

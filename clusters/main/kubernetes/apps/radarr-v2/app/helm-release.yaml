@@ -26,19 +26,12 @@ spec:
                 url: ${AWS_URL}
         persistence:
             config:
-                enabled: true
-                readOnly: false
-                storageClass: ""
-                targetSelector:
-                    main:
-                        main:
-                            mountPath: /config
                 volsync:
                     - credentials: aws
                       type: restic
                       name: radarr-config
                       src:
-                        enabled: false
+                        enabled: true
                       dest:
                         enabled: true
             data-vol:
@@ -57,9 +50,4 @@ spec:
                 fsGroupChangePolicy: OnRootMismatch
         service:
             main:
-                enabled: true
-                ports:
-                    main:
-                        port: 7878
                 type: LoadBalancer
-                loadBalancerIP: ""
